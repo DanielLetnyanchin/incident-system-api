@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using EducationalProject.Models;
-using EducationalProject.Models.Interfaces;
+﻿using EducationalProject.Models.Interfaces;
 using EducationalProject.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace EducationalProject.Controllers
 {
@@ -23,7 +19,7 @@ namespace EducationalProject.Controllers
         {
 
 
-            var incidents = _incidentRepository.GetAllIncidents().OrderBy(i => i.Id);
+            var incidents = _incidentRepository.GetAllIncidents().OrderBy(i => i.IncidentId);
 
             var homeViewModel = new HomeViewModel()
             {

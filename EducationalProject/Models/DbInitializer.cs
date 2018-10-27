@@ -1,8 +1,4 @@
-﻿using EducationalProject.Models.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 
 namespace EducationalProject.Models
 {
@@ -14,9 +10,9 @@ namespace EducationalProject.Models
             {
                 context.AddRange
                 (
-                    new Incident { Description = "Regular 'dividing by zero' incident, nothing special", Status = IncidentStatus.Opened },
-                    new Incident { Description = "Pug-dog rebellion", Status = IncidentStatus.Pending },
-                    new Incident { Description = "Grass is green", Status = IncidentStatus.Declined }
+                    new Incident { Description = "Regular 'dividing by zero' incident, nothing special", Status = "Opened" },
+                    new Incident { Description = "Pug-dog rebellion", Status = "Pending" },
+                    new Incident { Description = "Grass is green", Status = "Declined" }
                 );
 
                 context.SaveChanges();

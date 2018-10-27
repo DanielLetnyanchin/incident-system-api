@@ -1,8 +1,6 @@
 ﻿using EducationalProject.Models.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace EducationalProject.Models.Repositories
 {
@@ -15,6 +13,12 @@ namespace EducationalProject.Models.Repositories
             _appDbContext = appDbContext;
         }
 
+        public void AddIncident(Incident incident)
+        {
+            _appDbContext.Incidents.Add(incident);
+            _appDbContext.SaveChanges();
+        }
+
         public IEnumerable<Incident> GetAllIncidents()
         {
             return _appDbContext.Incidents;
@@ -22,7 +26,7 @@ namespace EducationalProject.Models.Repositories
 
         public Incident GetIncidentById(int incidentId)
         {
-            return _appDbContext.Incidents.FirstOrDefault(i => i.Id == incidentId);
+            return _appDbContext.Incidents.FirstOrDefault(i => i.IncidentId == incidentId);
         }
     }
 }

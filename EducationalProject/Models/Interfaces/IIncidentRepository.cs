@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace EducationalProject.Models.Interfaces
 {
@@ -9,5 +6,7 @@ namespace EducationalProject.Models.Interfaces
     {
         IEnumerable<Incident> GetAllIncidents();
         Incident GetIncidentById(int incidentId);
+
+        void AddIncident(Incident incident);
     }
 }

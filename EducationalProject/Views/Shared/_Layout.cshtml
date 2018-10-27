@@ -8,8 +8,15 @@
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    <div class="container">
-        @RenderBody()
+    <ul class="nav navbar-nav">
+        <li><a asp-controller="Home" asp-action="Index" class="navbar-brand">Educational Project</a></li>
+        <li><a asp-controller="Incident" asp-action="Index">Incident</a></li>
+    </ul>
+
+    <div class="container body-content">
+        <div class="row">
+            @RenderBody()
+        </div>
     </div>
 </body>
 </html>

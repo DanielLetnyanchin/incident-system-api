@@ -1,20 +1,25 @@
-﻿using EducationalProject.Models.Enums;
-using EducationalProject.Models.Interfaces;
+﻿using EducationalProject.Models.Interfaces;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace EducationalProject.Models
 {
     public class Incident : IModificationHistory
     {
+        [BindNever]
+        public int IncidentId { get; set; }
 
-        public int Id { get; set; }
+        [Required]
+        [StringLength(300)]
         public string Description { get; set; }
-        public IncidentStatus Status { get; set; }
+        [Required]
+        [StringLength(20)]
+        public string Status { get; set; }
 
+        [BindNever]
         public DateTime DateModified { get; set; }
+        [BindNever]
         public DateTime DateCreated { get; set; }
     }
 }
