@@ -1,0 +1,20 @@
+﻿@model EducationalProject.ViewModels.HomeViewModel
+
+<h2>@Model.Title</h2>
+
+@foreach (var incident in Model.Incidents)
+{
+    <div class="row">
+        <div class="thumbnail">
+            <div class="caption">
+                <h3>@incident.Id</h3>
+                <p>@incident.Description</p>
+                <p>@incident.Status</p>
+                <p>@incident.DateModified</p>
+                <p>@incident.DateCreated</p>
+            </div>
+        </div>
+    </div>
+}
+
+
