@@ -1,9 +1,9 @@
-﻿using DataAccess.Entities;
-using DataAccess.Repository.Interfaces;
+﻿using Contracts.Repository;
+using Models.Entities;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DataAccess.Repository
+namespace DataAccessService.Repository
 {
     public class MockIncidentRepository: IIncidentRepository
     {

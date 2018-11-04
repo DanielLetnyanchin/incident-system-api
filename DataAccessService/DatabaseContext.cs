@@ -1,10 +1,10 @@
-﻿using DataAccess.Entities;
-using DataAccess.Entities.Interfaces;
+﻿using Models.Entities;
+using Models.Entities.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
-namespace DataAccess
+namespace DataAccessService
 {
     public class DatabaseContext : DbContext
     {

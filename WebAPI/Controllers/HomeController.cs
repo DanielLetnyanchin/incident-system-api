@@ -1,10 +1,10 @@
-﻿using BusinessLogic.Mapper;
-using BusinessLogic.ViewModels;
-using DataAccess.Entities;
-using DataAccess.Repository.Interfaces;
+﻿using Models.Mapper;
+using Models.ViewModels;
+using Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using Contracts.Repository;
 
 namespace WebAPI.Controllers
 {

@@ -1,7 +1,7 @@
-﻿using DataAccess.Entities;
+﻿using Models.Entities;
 using System.Collections.Generic;
 
-namespace DataAccess.Repository.Interfaces
+namespace Contracts.Repository
 {
     public interface IAccountRepository
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataAccess.Entities.Interfaces
+namespace Models.Entities.Interfaces
 {
     public interface IModificationHistory
     {
