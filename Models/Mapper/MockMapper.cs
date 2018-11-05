@@ -1,10 +1,8 @@
-﻿using BusinessLogic.ViewModels;
-using DataAccess.Entities;
-using System;
+﻿using Models.Entities;
+using Models.ViewModels;
 using System.Collections.Generic;
-using System.Text;
 
-namespace BusinessLogic.Mapper
+namespace Models.Mapper
 {
     public class MockMapper
     {

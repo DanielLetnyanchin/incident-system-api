@@ -1,7 +1,7 @@
-﻿using DataAccess.Entities;
+﻿using Models.Entities;
 using System.Linq;
 
-namespace DataAccess
+namespace DataAccessService
 {
     public static class DatabaseInitializer
     {

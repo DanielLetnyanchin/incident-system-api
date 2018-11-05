@@ -2,9 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <AssemblyName>DataAccess</AssemblyName>
-    <RootNamespace>DataAccess</RootNamespace>
+    <AssemblyName>DataAccessService</AssemblyName>
+    <RootNamespace>DataAccessService</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Contracts\Contracts.csproj" />
+    <ProjectReference Include="..\Models\Models.csproj" />
+  </ItemGroup>
 
   <ItemGroup>
     <Reference Include="Microsoft.EntityFrameworkCore">

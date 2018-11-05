@@ -1,9 +1,9 @@
-﻿using DataAccess.Entities;
-using DataAccess.Repository.Interfaces;
+﻿using Models.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using Contracts.Repository;
 
-namespace DataAccess.Repository
+namespace DataAccessService.Repository
 {
     public class MockAccountRepository : IAccountRepository
     {

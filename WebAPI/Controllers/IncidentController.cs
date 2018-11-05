@@ -1,7 +1,7 @@
-﻿using BusinessLogic.ViewModels;
-using DataAccess.Entities;
-using DataAccess.Repository.Interfaces;
+﻿using Models.ViewModels;
+using Models.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Contracts.Repository;
 
 namespace WebAPI.Controllers
 {

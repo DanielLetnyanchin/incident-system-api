@@ -1,6 +1,6 @@
-﻿using DataAccess;
-using DataAccess.Repository;
-using DataAccess.Repository.Interfaces;
+﻿using Contracts.Repository;
+using DataAccessService;
+using DataAccessService.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;

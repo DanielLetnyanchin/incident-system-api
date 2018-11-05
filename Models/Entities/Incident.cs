@@ -1,7 +1,7 @@
-﻿using DataAccess.Entities.Interfaces;
+﻿using Models.Entities.Interfaces;
 using System;
 
-namespace DataAccess.Entities
+namespace Models.Entities
 {
     public class Incident : IModificationHistory
     {
