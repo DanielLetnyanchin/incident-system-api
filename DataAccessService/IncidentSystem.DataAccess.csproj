@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Contracts\Contracts.csproj" />
-    <ProjectReference Include="..\Models\Models.csproj" />
+    <ProjectReference Include="..\Contracts\IncidentSystem.Interfaces.csproj" />
+    <ProjectReference Include="..\Models\IncidentSystem.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>
