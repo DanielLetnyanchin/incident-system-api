@@ -1,4 +1,6 @@
-﻿using IncidentSystem.Interfaces;
+﻿using System;
+using System.IO;
+using IncidentSystem.Interfaces;
 using IncidentSystem.DataAccess;
 using IncidentSystem.DataAccess.Repository;
 using Microsoft.AspNetCore.Builder;
@@ -6,6 +8,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NLog;
+using IncidentSystem.Common;
 
 namespace IncidentSystem.API
 {
@@ -15,6 +19,7 @@ namespace IncidentSystem.API
 
         public Startup(IConfiguration configuration)
         {
+            LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
             Configuration = configuration;
         }
 
@@ -25,6 +30,8 @@ namespace IncidentSystem.API
             services.AddDbContext<DatabaseContext>(
                 options => options
                 .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), o => o.MigrationsAssembly("WebAPI")));
+
+            services.AddSingleton<ILoggerWrapper, LoggerWrapper>();
 
             services.AddTransient<IIncidentRepository, IncidentRepository>();
 

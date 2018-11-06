@@ -13,10 +13,12 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="NLog" Version="4.5.10" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\IncidentSystem.Business\IncidentSystem.Business.csproj" />
+    <ProjectReference Include="..\IncidentSystem.Common\IncidentSystem.Common.csproj" />
     <ProjectReference Include="..\IncidentSystem.DataAccess\IncidentSystem.DataAccess.csproj" />
     <ProjectReference Include="..\IncidentSystem.Interfaces\IncidentSystem.Interfaces.csproj" />
     <ProjectReference Include="..\IncidentSystem.Models\IncidentSystem.Models.csproj" />
