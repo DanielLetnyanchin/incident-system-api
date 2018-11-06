@@ -2,13 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-//using NLog;
+using NLog;
+
 
 namespace IncidentSystem.Common
 {
     public class LoggerWrapper : ILoggerWrapper
     {
-        //private static ILogger logger = LogManager.GetCurrentClassLogger();
+        private static ILogger logger = LogManager.GetCurrentClassLogger();
 
         public LoggerWrapper()
         {
@@ -16,22 +17,30 @@ namespace IncidentSystem.Common
 
         public void Debug(params string[] list)
         {
-            //logger.Debug(srting mesage, string stackTrace, string ImportantString);
+            var logRecord = string.Format("Message:{0} Stack Trace:{1}", list[0],list[1]);
+
+            logger.Debug(logRecord);
         }
 
         public void Error(params string[] list)
         {
-            //logger.Error(srting mesage, string stackTrace, string ImportantString);
+            var logRecord = string.Format("Message:{0} Stack Trace:{1}", list[0], list[1]);
+
+            logger.Error(logRecord);
         }
 
         public void Info(params string[] list)
         {
-            //logger.Info(srting mesage, string stackTrace, string ImportantString);
+            var logRecord = string.Format("Message:{0} Stack Trace:{1}", list[0], list[1]);
+
+            logger.Info(logRecord);
         }
 
         public void Warn(params string[] list)
         {
-            //logger.Warn(srting mesage, string stackTrace, string ImportantString);
+            var logRecord = string.Format("Message:{0} Stack Trace:{1}", list[0], list[1]);
+
+            logger.Warn(logRecord);
         }
     }
 }
