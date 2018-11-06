@@ -1,0 +1,16 @@
+﻿@model IncidentSystem.Models.ViewModels.HomeViewModel
+
+<h2>@Model.Title</h2>
+
+@foreach (var incident in Model.Incidents)
+{
+        <div class="thumbnail">
+            <div class="caption">
+                <h3>@incident.IncidentId</h3>
+                <p>@incident.Description</p>
+                <p>@incident.Status</p>
+            </div>
+        </div>
+}
+
+

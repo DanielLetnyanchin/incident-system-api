@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IncidentSystem.Interfaces\IncidentSystem.Interfaces.csproj" />
+    <ProjectReference Include="..\IncidentSystem.Models\IncidentSystem.Models.csproj" />
+  </ItemGroup>
+
+</Project>
