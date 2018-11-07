@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
 using IncidentSystem.Common;
+using IncidentSystem.API.ActionFilters;
+using IncidentSystem.API.Extensions;
 
 namespace IncidentSystem.API
 {
@@ -33,8 +35,9 @@ namespace IncidentSystem.API
 
             services.AddSingleton<ILoggerWrapper, LoggerWrapper>();
 
-            services.AddTransient<IIncidentRepository, IncidentRepository>();
+            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
 
+            services.AddScoped<ControllerFilter>();
             services.AddMvc();
         }
 
@@ -44,6 +47,7 @@ namespace IncidentSystem.API
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
             app.UseStaticFiles();
+            app.UseMiddleware<ExceptionMiddleware>();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
