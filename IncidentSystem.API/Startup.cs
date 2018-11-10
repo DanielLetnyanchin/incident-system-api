@@ -11,7 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using NLog;
 using IncidentSystem.Common;
 using IncidentSystem.API.ActionFilters;
-using IncidentSystem.API.Extensions;
 
 namespace IncidentSystem.API
 {
@@ -37,8 +36,10 @@ namespace IncidentSystem.API
 
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
 
-            services.AddScoped<ControllerFilter>();
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(GlobalExceptionFilter)); // Registering filter globally
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,7 +48,6 @@ namespace IncidentSystem.API
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
             app.UseStaticFiles();
-            app.UseMiddleware<ExceptionMiddleware>();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

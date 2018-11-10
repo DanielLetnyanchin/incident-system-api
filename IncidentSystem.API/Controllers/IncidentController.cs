@@ -18,16 +18,15 @@ namespace IncidentSystem.API.Controllers
             _incidentRepository = incidentRepository;
             _logger = logger;
         }
-
-        [ServiceFilter(typeof(ControllerFilter))]
+        
         [HttpGet]
         public IActionResult Index()
         {
-            throw new Exception("Exception while fetching all the students from the storage.");
+            throw new Exception("Custom exception for testing");
+            
             return View();
         }
 
-        [ServiceFilter(typeof(ControllerFilter))]
         [HttpPost]
         public IActionResult Index(IncidentViewModel incidentViewModel)
         {
