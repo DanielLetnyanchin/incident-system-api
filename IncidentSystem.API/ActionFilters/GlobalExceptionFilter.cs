@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace IncidentSystem.API.ActionFilters
 {
-    public class GlobalExceptionFilter : IExceptionFilter //: ExceptionFilterAttribute?
+    public class GlobalExceptionFilter : ExceptionFilterAttribute
     {
         private readonly ILoggerWrapper _logger;
 
@@ -18,7 +18,7 @@ namespace IncidentSystem.API.ActionFilters
             _logger = logger;
         }
 
-        public void OnException(ExceptionContext context)
+        public override void OnException(ExceptionContext context)
         {
             _logger.Error(context.Exception.Message, context.Exception.StackTrace);
 

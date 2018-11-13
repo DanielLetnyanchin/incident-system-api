@@ -8,6 +8,7 @@ using IncidentSystem.API.ActionFilters;
 
 namespace IncidentSystem.API.Controllers
 {
+    
     public class IncidentController : Controller
     {
         public readonly IRepository<Incident> _incidentRepository;
@@ -22,7 +23,7 @@ namespace IncidentSystem.API.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            throw new Exception("Custom exception for testing");
+            //throw new Exception("Custom exception for testing");
             
             return View();
         }

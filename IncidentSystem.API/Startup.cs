@@ -2,7 +2,6 @@
 using System.IO;
 using IncidentSystem.Interfaces;
 using IncidentSystem.DataAccess;
-using IncidentSystem.DataAccess.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
