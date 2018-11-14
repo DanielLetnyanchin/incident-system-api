@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using IncidentSystem.Models.ViewModels;
 using IncidentSystem.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 using IncidentSystem.Interfaces;
@@ -25,26 +24,15 @@ namespace IncidentSystem.API.Controllers
         {
             //throw new Exception("Custom exception for testing");
             
-            return View();
+            return Ok();
         }
 
         [HttpPost]
-        public IActionResult Index(IncidentViewModel incidentViewModel)
+        public IActionResult Index(Incident incident)
         {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    _incidentRepository.Add(new Incident { Description = incidentViewModel.Description, Status = incidentViewModel.Status });
-                    return View(incidentViewModel);
-                }
-            }
-            catch (Exception e)
-            {
-                _logger.Info(e.Message, e.StackTrace);
-            }
 
-            return View(incidentViewModel);
+            _incidentRepository.Add(incident);
+            return Ok();
         }
     }
 }
