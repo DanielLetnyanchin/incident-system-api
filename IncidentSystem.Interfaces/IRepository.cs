@@ -7,10 +7,11 @@ namespace IncidentSystem.Interfaces
 {
     public interface IRepository<T> where T : class
     {
-        IEnumerable<T> Get();
-        IEnumerable<T> Get(Expression<Func<T, bool>> predicate);
+        IEnumerable<T> GetAll();
+        IEnumerable<T> GetByCondition(Expression<Func<T, bool>> expression);
         void Add(T entity);
-        void Delete(T entity);
         void Update(T entity);
+        void Delete(T entity);
+        void Save();
     }
 }

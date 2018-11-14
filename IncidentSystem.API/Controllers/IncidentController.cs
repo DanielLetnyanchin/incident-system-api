@@ -24,14 +24,14 @@ namespace IncidentSystem.API.Controllers
         {
             //throw new Exception("Custom exception for testing");
             
-            return Ok();
+            return Ok(_incidentRepository.GetAll());
         }
 
         [HttpPost]
         public IActionResult Index(Incident incident)
         {
-
             _incidentRepository.Add(incident);
+            _incidentRepository.Save();
             return Ok();
         }
     }
