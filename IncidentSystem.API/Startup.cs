@@ -2,7 +2,6 @@
 using System.IO;
 using IncidentSystem.Interfaces;
 using IncidentSystem.DataAccess;
-using IncidentSystem.DataAccess.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
 using IncidentSystem.Common;
+using IncidentSystem.API.ActionFilters;
 
 namespace IncidentSystem.API
 {
@@ -33,9 +33,12 @@ namespace IncidentSystem.API
 
             services.AddSingleton<ILoggerWrapper, LoggerWrapper>();
 
-            services.AddTransient<IIncidentRepository, IncidentRepository>();
+            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
 
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(GlobalExceptionFilter)); // Registering filter globally
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

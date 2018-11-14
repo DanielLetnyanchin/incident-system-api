@@ -1,51 +1,38 @@
 ﻿using System;
 using System.Diagnostics;
-using IncidentSystem.Models.ViewModels;
 using IncidentSystem.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 using IncidentSystem.Interfaces;
+using IncidentSystem.API.ActionFilters;
 
 namespace IncidentSystem.API.Controllers
 {
+    
     public class IncidentController : Controller
     {
-        public readonly IIncidentRepository _incidentRepository;
+        public readonly IRepository<Incident> _incidentRepository;
         private ILoggerWrapper _logger;
 
-        public IncidentController(IIncidentRepository incidentRepository, ILoggerWrapper logger)
+        public IncidentController(IRepository<Incident> incidentRepository, ILoggerWrapper logger)
         {
             _incidentRepository = incidentRepository;
             _logger = logger;
         }
-
-        // GET: /<controller>/
+        
+        [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            //throw new Exception("Custom exception for testing");
+            
+            return Ok(_incidentRepository.GetAll());
         }
 
         [HttpPost]
-        public IActionResult Index(IncidentViewModel incidentViewModel)
+        public IActionResult Index(Incident incident)
         {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    _incidentRepository.AddIncident(new Incident { Description = incidentViewModel.Description, Status = incidentViewModel.Status });
-                    return RedirectToAction("IncidentAdded");
-                }
-            }
-            catch (Exception e)
-            {
-                _logger.Info(e.Message, e.StackTrace);
-            }
-
-            return View(incidentViewModel);
-        }
-
-        public IActionResult IncidentAdded()
-        {
-            return View();
+            _incidentRepository.Add(incident);
+            _incidentRepository.Save();
+            return Ok();
         }
     }
 }
