@@ -20,7 +20,7 @@ namespace IncidentSystem.API.ActionFilters
 
         public override void OnException(ExceptionContext context)
         {
-            _logger.Error(context.Exception.Message, context.Exception.StackTrace);
+            _logger.Error(context.HttpContext.TraceIdentifier,context.Exception.Message, context.Exception.StackTrace);
 
             context.Result = new JsonResult(new
             {
