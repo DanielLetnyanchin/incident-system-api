@@ -3,23 +3,25 @@ using System.Diagnostics;
 using IncidentSystem.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 using IncidentSystem.Interfaces;
-using IncidentSystem.Interfaces.Repository;
 using IncidentSystem.API.ActionFilters;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using IncidentSystem.DataAccess;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace IncidentSystem.API.Controllers
 {
     [Route("api/incidents")]
     public class IncidentsController : Controller
     {
-        private IRepositoryWrapper _repoWrapper;
+        private DatabaseContext _dbContext;
         private ILoggerWrapper _logger;
 
-        public IncidentsController(IRepositoryWrapper repoWrapper, ILoggerWrapper logger)
+        public IncidentsController(ILoggerWrapper logger, DatabaseContext dbContext)
         {
-            _repoWrapper = repoWrapper;
             _logger = logger;
+            _dbContext = dbContext;
         }
         
         [HttpGet()]
@@ -27,7 +29,7 @@ namespace IncidentSystem.API.Controllers
         {
             //throw new Exception("Custom exception for testing");
             
-            return Ok(await _repoWrapper.Incident.GetAllAsync());
+            return Ok(await _dbContext.Incidents.ToListAsync());
         }
 
         [HttpGet("{id}")]
@@ -35,14 +37,14 @@ namespace IncidentSystem.API.Controllers
         {
             //throw new Exception("Custom exception for testing");
 
-            return new JsonResult(await _repoWrapper.Incident.GetByConditionAsync(i => i.IncidentId == id));
+            return new JsonResult(await _dbContext.Incidents.Where(i => i.IncidentId == id).ToListAsync());
         }
 
         [HttpPost()]
         public async Task<IActionResult> AddIncident(Incident incident)
         {
-            _repoWrapper.Incident.Add(incident);
-            await _repoWrapper.Incident.SaveAsync();
+            _dbContext.Incidents.Add(incident);
+            await _dbContext.SaveChangesAsync();
             return Ok();
         }
     }
