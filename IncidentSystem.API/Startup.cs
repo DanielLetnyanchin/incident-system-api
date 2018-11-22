@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NLog;
 using IncidentSystem.Common;
 using IncidentSystem.API.ActionFilters;
+using IncidentSystem.Interfaces.Repository;
 
 namespace IncidentSystem.API
 {
@@ -33,7 +34,7 @@ namespace IncidentSystem.API
 
             services.AddSingleton<ILoggerWrapper, LoggerWrapper>();
 
-            services.AddTransient(typeof(IRepositoryAsync<>), typeof(RepositoryAsync<>));
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 
             services.AddMvc(options =>
             {

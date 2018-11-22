@@ -3,6 +3,7 @@ using System.Diagnostics;
 using IncidentSystem.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 using IncidentSystem.Interfaces;
+using IncidentSystem.Interfaces.Repository;
 using IncidentSystem.API.ActionFilters;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -12,12 +13,12 @@ namespace IncidentSystem.API.Controllers
     [Route("api/incidents")]
     public class IncidentsController : Controller
     {
-        public readonly IRepositoryAsync<Incident> _incidentRepository;
+        private IRepositoryWrapper _repoWrapper;
         private ILoggerWrapper _logger;
 
-        public IncidentsController(IRepositoryAsync<Incident> incidentRepository, ILoggerWrapper logger)
+        public IncidentsController(IRepositoryWrapper repoWrapper, ILoggerWrapper logger)
         {
-            _incidentRepository = incidentRepository;
+            _repoWrapper = repoWrapper;
             _logger = logger;
         }
         
@@ -26,7 +27,7 @@ namespace IncidentSystem.API.Controllers
         {
             //throw new Exception("Custom exception for testing");
             
-            return Ok(await _incidentRepository.GetAllAsync());
+            return Ok(await _repoWrapper.Incident.GetAllAsync());
         }
 
         [HttpGet("{id}")]
@@ -34,14 +35,14 @@ namespace IncidentSystem.API.Controllers
         {
             //throw new Exception("Custom exception for testing");
 
-            return new JsonResult(await _incidentRepository.GetByConditionAsync(i => i.IncidentId == id));
+            return new JsonResult(await _repoWrapper.Incident.GetByConditionAsync(i => i.IncidentId == id));
         }
 
         [HttpPost()]
         public async Task<IActionResult> AddIncident(Incident incident)
         {
-            _incidentRepository.Add(incident);
-            await _incidentRepository.SaveAsync();
+            _repoWrapper.Incident.Add(incident);
+            await _repoWrapper.Incident.SaveAsync();
             return Ok();
         }
     }
