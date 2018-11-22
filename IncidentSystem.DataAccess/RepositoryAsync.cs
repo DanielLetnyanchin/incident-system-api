@@ -1,29 +1,31 @@
 ﻿using IncidentSystem.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace IncidentSystem.DataAccess
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class RepositoryAsync<T> : IRepositoryAsync<T> where T : class
     {
         private readonly DatabaseContext _dbContext;
 
-        public Repository(DatabaseContext dbContext)
+        public RepositoryAsync(DatabaseContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
-            return _dbContext.Set<T>();
+            return await _dbContext.Set<T>().ToListAsync();
         }
 
-        public IEnumerable<T> GetByCondition(Expression<Func<T, bool>> expression)
+        public async Task<IEnumerable<T>> GetByConditionAsync(Expression<Func<T, bool>> expression)
         {
-            return _dbContext.Set<T>().Where(expression);
+            return await _dbContext.Set<T>().Where(expression).ToListAsync();
         }
 
         public void Add(T entity)
@@ -41,9 +43,9 @@ namespace IncidentSystem.DataAccess
             _dbContext.Set<T>().Remove(entity);
         }
 
-        public void Save()
+        public async Task SaveAsync()
         {
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

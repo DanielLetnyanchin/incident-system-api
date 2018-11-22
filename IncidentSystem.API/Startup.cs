@@ -33,7 +33,7 @@ namespace IncidentSystem.API
 
             services.AddSingleton<ILoggerWrapper, LoggerWrapper>();
 
-            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            services.AddTransient(typeof(IRepositoryAsync<>), typeof(RepositoryAsync<>));
 
             services.AddMvc(options =>
             {
@@ -47,14 +47,7 @@ namespace IncidentSystem.API
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
             app.UseStaticFiles();
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}"
-                    );
-            }
-            );
+            app.UseMvc();
         }
     }
 }
