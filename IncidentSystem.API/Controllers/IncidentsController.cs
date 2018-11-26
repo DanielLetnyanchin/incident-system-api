@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using IncidentSystem.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using IncidentSystem.DataAccess.Queries;
 
 namespace IncidentSystem.API.Controllers
 {
@@ -37,14 +38,12 @@ namespace IncidentSystem.API.Controllers
         {
             //throw new Exception("Custom exception for testing");
 
-            return new JsonResult(await _dbContext.Incidents.Where(i => i.IncidentId == id).ToListAsync());
+            return new JsonResult(await _dbContext.Incidents.Where(IncidentQueries.IncidentById(id)).SingleAsync());
         }
 
         [HttpPost()]
         public async Task<IActionResult> AddIncident(Incident incident)
         {
-            _dbContext.Incidents.Add(incident);
-            await _dbContext.SaveChangesAsync();
             return Ok();
         }
     }

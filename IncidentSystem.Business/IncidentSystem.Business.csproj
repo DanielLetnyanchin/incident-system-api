@@ -5,7 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NLog" Version="4.5.10" />
+    <ProjectReference Include="..\IncidentSystem.DataAccess\IncidentSystem.DataAccess.csproj" />
+    <ProjectReference Include="..\IncidentSystem.Interfaces\IncidentSystem.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>
