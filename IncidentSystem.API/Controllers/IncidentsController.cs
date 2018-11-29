@@ -16,21 +16,19 @@ namespace IncidentSystem.API.Controllers
     [Route("api/incidents")]
     public class IncidentsController : Controller
     {
-        private DatabaseContext _dbContext;
-        private ILoggerWrapper _logger;
+        private IIncidentService _incidentService;
 
-        public IncidentsController(ILoggerWrapper logger, DatabaseContext dbContext)
+        public IncidentsController(IIncidentService incidentService)
         {
-            _logger = logger;
-            _dbContext = dbContext;
+            _incidentService = incidentService;
         }
         
         [HttpGet()]
         public async Task<IActionResult> GetIncidents()
         {
             //throw new Exception("Custom exception for testing");
-            
-            return Ok(await _dbContext.Incidents.ToListAsync());
+
+            return Ok(await _incidentService.GetAllIncidentsAsync());
         }
 
         [HttpGet("{id}")]
@@ -38,12 +36,13 @@ namespace IncidentSystem.API.Controllers
         {
             //throw new Exception("Custom exception for testing");
 
-            return new JsonResult(await _dbContext.Incidents.Where(IncidentQueries.IncidentById(id)).SingleAsync());
+            return new JsonResult(await _incidentService.GetIncidentByIdAsync(id));
         }
 
         [HttpPost()]
         public async Task<IActionResult> AddIncident(Incident incident)
         {
+            await _incidentService.AddNewIncidentAsync(incident);
             return Ok();
         }
     }

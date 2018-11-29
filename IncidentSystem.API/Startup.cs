@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NLog;
 using IncidentSystem.Common;
 using IncidentSystem.API.ActionFilters;
+using IncidentSystem.Business;
 
 namespace IncidentSystem.API
 {
@@ -32,6 +33,7 @@ namespace IncidentSystem.API
                 .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), o => o.MigrationsAssembly("WebAPI")));
 
             services.AddSingleton<ILoggerWrapper, LoggerWrapper>();
+            services.AddTransient<IIncidentService, IncidentService>();
 
             services.AddMvc(options =>
             {

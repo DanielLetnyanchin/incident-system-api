@@ -8,8 +8,8 @@ namespace IncidentSystem.Interfaces
 {
     public interface IIncidentService
     {
-        Task<List<Incident>> GetAllIncidents();
-        Task<Incident> GetIncidentById();
+        Task<IEnumerable<Incident>> GetAllIncidentsAsync();
+        Task<Incident> GetIncidentByIdAsync(int id);
         Task AddNewIncidentAsync(Incident incident);
     }
 }

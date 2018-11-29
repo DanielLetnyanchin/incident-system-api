@@ -1,9 +1,11 @@
 ﻿using IncidentSystem.DataAccess;
+using IncidentSystem.DataAccess.Queries;
 using IncidentSystem.Interfaces;
 using IncidentSystem.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,27 +14,26 @@ namespace IncidentSystem.Business
     public class IncidentService : IIncidentService
     {
         private DatabaseContext _dbContext;
-        private ILoggerWrapper _logger;
 
-        public IncidentService(ILoggerWrapper logger, DatabaseContext dbContext)
+        public IncidentService(DatabaseContext dbContext)
         {
-            _logger = logger;
             _dbContext = dbContext;
         }
 
-        public Task AddNewIncidentAsync(Incident incident)
+        public async Task AddNewIncidentAsync(Incident incident)
         {
-            throw new NotImplementedException();
+            await _dbContext.Incidents.AddAsync(incident);
+            _dbContext.SaveChanges();
         }
 
-        public Task<List<Incident>> GetAllIncidents()
+        public async Task<IEnumerable<Incident>> GetAllIncidentsAsync()
         {
-            throw new NotImplementedException();
+            return await _dbContext.Incidents.ToListAsync();
         }
 
-        public Task<Incident> GetIncidentById()
+        public async Task<Incident> GetIncidentByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Incidents.Where(IncidentQueries.IncidentById(id)).SingleAsync();
         }
     }
 }
