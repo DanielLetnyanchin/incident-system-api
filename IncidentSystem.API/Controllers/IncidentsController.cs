@@ -36,7 +36,8 @@ namespace IncidentSystem.API.Controllers
         {
             //throw new Exception("Custom exception for testing");
 
-            return new JsonResult(await _incidentService.GetIncidentByIdAsync(id));
+            //return new JsonResult(await _incidentService.GetIncidentByIdAsync(id));
+            return new JsonResult(await _incidentService.GetSingleIncidentByExpressionAsync(IncidentQueries.IncidentById(id)));
         }
 
         [HttpPost()]

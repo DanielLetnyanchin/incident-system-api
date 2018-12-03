@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,6 +35,16 @@ namespace IncidentSystem.Business
         public async Task<Incident> GetIncidentByIdAsync(int id)
         {
             return await _dbContext.Incidents.Where(IncidentQueries.IncidentById(id)).SingleAsync();
+        }
+
+        public async Task<IEnumerable<Incident>> GetIncidentCollectionByExpressionAsync(Expression<Func<Incident, bool>> expression)
+        {
+            return await _dbContext.Incidents.Where(expression).ToListAsync();
+        }
+
+        public async Task<Incident> GetSingleIncidentByExpressionAsync(Expression<Func<Incident, bool>> expression)
+        {
+            return await _dbContext.Incidents.Where(expression).SingleAsync();
         }
     }
 }
