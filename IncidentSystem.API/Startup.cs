@@ -11,6 +11,8 @@ using NLog;
 using IncidentSystem.Common;
 using IncidentSystem.API.ActionFilters;
 using IncidentSystem.Business;
+using Microsoft.AspNetCore.Identity;
+using IncidentSystem.Models.Entities;
 
 namespace IncidentSystem.API
 {
@@ -33,12 +35,15 @@ namespace IncidentSystem.API
                 .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), o => o.MigrationsAssembly("WebAPI")));
 
             services.AddSingleton<ILoggerWrapper, LoggerWrapper>();
-            services.AddTransient<IIncidentService, IncidentService>();
+            services.AddScoped<IIncidentService, IncidentService>();
+            services.AddScoped<IUserStore<UserAccount>, UserAccountService>();
 
             services.AddMvc(options =>
             {
                 options.Filters.Add(typeof(GlobalExceptionFilter)); // Registering filter globally
             });
+
+            services.AddIdentityCore<string>(options => { });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
