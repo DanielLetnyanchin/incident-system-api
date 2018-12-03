@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NLog;
 using IncidentSystem.Common;
 using IncidentSystem.API.ActionFilters;
+using IncidentSystem.Business;
 
 namespace IncidentSystem.API
 {
@@ -32,8 +33,7 @@ namespace IncidentSystem.API
                 .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), o => o.MigrationsAssembly("WebAPI")));
 
             services.AddSingleton<ILoggerWrapper, LoggerWrapper>();
-
-            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            services.AddTransient<IIncidentService, IncidentService>();
 
             services.AddMvc(options =>
             {
@@ -47,14 +47,7 @@ namespace IncidentSystem.API
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
             app.UseStaticFiles();
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}"
-                    );
-            }
-            );
+            app.UseMvc();
         }
     }
 }
