@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IncidentSystem.API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20181204214358_Initial")]
+    [Migration("20181204223742_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,7 +23,7 @@ namespace IncidentSystem.API.Migrations
 
             modelBuilder.Entity("IncidentSystem.Models.Entities.Incident", b =>
                 {
-                    b.Property<int>("IncidentId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -35,14 +35,14 @@ namespace IncidentSystem.API.Migrations
 
                     b.Property<string>("Status");
 
-                    b.HasKey("IncidentId");
+                    b.HasKey("Id");
 
                     b.ToTable("Incidents");
                 });
 
             modelBuilder.Entity("IncidentSystem.Models.Entities.UserAccount", b =>
                 {
-                    b.Property<string>("UserAccountId")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("DateCreated");
@@ -63,7 +63,7 @@ namespace IncidentSystem.API.Migrations
 
                     b.Property<string>("UserName");
 
-                    b.HasKey("UserAccountId");
+                    b.HasKey("Id");
 
                     b.ToTable("UserAccounts");
                 });

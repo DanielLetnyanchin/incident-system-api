@@ -21,7 +21,7 @@ namespace IncidentSystem.API.Migrations
 
             modelBuilder.Entity("IncidentSystem.Models.Entities.Incident", b =>
                 {
-                    b.Property<int>("IncidentId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -33,14 +33,14 @@ namespace IncidentSystem.API.Migrations
 
                     b.Property<string>("Status");
 
-                    b.HasKey("IncidentId");
+                    b.HasKey("Id");
 
                     b.ToTable("Incidents");
                 });
 
             modelBuilder.Entity("IncidentSystem.Models.Entities.UserAccount", b =>
                 {
-                    b.Property<string>("UserAccountId")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("DateCreated");
@@ -61,7 +61,7 @@ namespace IncidentSystem.API.Migrations
 
                     b.Property<string>("UserName");
 
-                    b.HasKey("UserAccountId");
+                    b.HasKey("Id");
 
                     b.ToTable("UserAccounts");
                 });

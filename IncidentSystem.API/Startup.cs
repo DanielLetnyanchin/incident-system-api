@@ -36,20 +36,23 @@ namespace IncidentSystem.API
 
             services.AddSingleton<ILoggerWrapper, LoggerWrapper>();
             services.AddScoped<IIncidentService, IncidentService>();
+
+            services.AddIdentityCore<UserAccount>(options => { });
             services.AddScoped<IUserStore<UserAccount>, UserAccountService>();
+            services.AddAuthentication("cookies")
+                .AddCookie("cookies", options => options.LoginPath = "/test");
 
             services.AddMvc(options =>
             {
                 options.Filters.Add(typeof(GlobalExceptionFilter)); // Registering filter globally
-            });
-
-            services.AddIdentityCore<string>(options => { });
+            });            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseDeveloperExceptionPage();
+            app.UseAuthentication();
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseMvc();

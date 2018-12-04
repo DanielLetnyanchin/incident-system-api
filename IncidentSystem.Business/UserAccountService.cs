@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace IncidentSystem.Business
 {
-    public class UserAccountService : IUserStore<UserAccount>
+    public class UserAccountService : IUserStore<UserAccount>, IUserPasswordStore<UserAccount>
     {
         public Task<IdentityResult> CreateAsync(UserAccount user, CancellationToken cancellationToken)
         {
@@ -22,7 +22,6 @@ namespace IncidentSystem.Business
 
         public void Dispose()
         {
-            throw new NotImplementedException();
         }
 
         public Task<UserAccount> FindByIdAsync(string userId, CancellationToken cancellationToken)
@@ -40,6 +39,11 @@ namespace IncidentSystem.Business
             throw new NotImplementedException();
         }
 
+        public Task<string> GetPasswordHashAsync(UserAccount user, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<string> GetUserIdAsync(UserAccount user, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
@@ -50,7 +54,17 @@ namespace IncidentSystem.Business
             throw new NotImplementedException();
         }
 
+        public Task<bool> HasPasswordAsync(UserAccount user, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task SetNormalizedUserNameAsync(UserAccount user, string normalizedName, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SetPasswordHashAsync(UserAccount user, string passwordHash, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }

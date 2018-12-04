@@ -12,7 +12,7 @@ namespace IncidentSystem.API.Migrations
                 name: "Incidents",
                 columns: table => new
                 {
-                    IncidentId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Description = table.Column<string>(nullable: true),
                     Status = table.Column<string>(nullable: true),
@@ -21,14 +21,14 @@ namespace IncidentSystem.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Incidents", x => x.IncidentId);
+                    table.PrimaryKey("PK_Incidents", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "UserAccounts",
                 columns: table => new
                 {
-                    UserAccountId = table.Column<string>(nullable: false),
+                    Id = table.Column<string>(nullable: false),
                     UserName = table.Column<string>(nullable: true),
                     NormalizedUserName = table.Column<string>(nullable: true),
                     FirstName = table.Column<string>(nullable: true),
@@ -41,7 +41,7 @@ namespace IncidentSystem.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserAccounts", x => x.UserAccountId);
+                    table.PrimaryKey("PK_UserAccounts", x => x.Id);
                 });
         }
 
