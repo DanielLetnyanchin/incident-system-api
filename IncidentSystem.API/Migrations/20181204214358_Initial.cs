@@ -23,12 +23,35 @@ namespace IncidentSystem.API.Migrations
                 {
                     table.PrimaryKey("PK_Incidents", x => x.IncidentId);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "UserAccounts",
+                columns: table => new
+                {
+                    UserAccountId = table.Column<string>(nullable: false),
+                    UserName = table.Column<string>(nullable: true),
+                    NormalizedUserName = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    PasswordHash = table.Column<string>(nullable: true),
+                    IsAdmin = table.Column<bool>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserAccounts", x => x.UserAccountId);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Incidents");
+
+            migrationBuilder.DropTable(
+                name: "UserAccounts");
         }
     }
 }

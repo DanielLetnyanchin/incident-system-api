@@ -9,7 +9,6 @@ namespace IncidentSystem.DataAccess
     public class DatabaseContext : DbContext
     {
         public DbSet<Incident> Incidents { get; set; }
-
         public DbSet<UserAccount> UserAccounts { get; set; }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)

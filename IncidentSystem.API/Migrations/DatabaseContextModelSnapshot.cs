@@ -19,7 +19,7 @@ namespace IncidentSystem.API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Models.Entities.Incident", b =>
+            modelBuilder.Entity("IncidentSystem.Models.Entities.Incident", b =>
                 {
                     b.Property<int>("IncidentId")
                         .ValueGeneratedOnAdd()
@@ -36,6 +36,34 @@ namespace IncidentSystem.API.Migrations
                     b.HasKey("IncidentId");
 
                     b.ToTable("Incidents");
+                });
+
+            modelBuilder.Entity("IncidentSystem.Models.Entities.UserAccount", b =>
+                {
+                    b.Property<string>("UserAccountId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<DateTime>("DateModified");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<bool>("IsAdmin");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<string>("NormalizedUserName");
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("UserName");
+
+                    b.HasKey("UserAccountId");
+
+                    b.ToTable("UserAccounts");
                 });
 #pragma warning restore 612, 618
         }

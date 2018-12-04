@@ -32,7 +32,7 @@ namespace IncidentSystem.API
             // Moove to extand method all config
             services.AddDbContext<DatabaseContext>(
                 options => options
-                .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), o => o.MigrationsAssembly("WebAPI")));
+                .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), o => o.MigrationsAssembly("IncidentSystem.API")));
 
             services.AddSingleton<ILoggerWrapper, LoggerWrapper>();
             services.AddScoped<IIncidentService, IncidentService>();

@@ -5,7 +5,7 @@ namespace IncidentSystem.Models.Entities
 {
     public class UserAccount : IModificationHistory
     {
-        public int UserAccountId { get; set; }
+        public string UserAccountId { get; set; }
         public string UserName { get; set; }
         public string NormalizedUserName { get; set; }
         public string FirstName { get; set; }

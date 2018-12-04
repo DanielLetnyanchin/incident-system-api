@@ -21,8 +21,9 @@ namespace IncidentSystem.API
                     var context = services.GetRequiredService<DatabaseContext>();
                     DatabaseInitializer.InitializeIncidents(context);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    throw ex;
                     //we could log this in a real-world situation
                 }
             }
