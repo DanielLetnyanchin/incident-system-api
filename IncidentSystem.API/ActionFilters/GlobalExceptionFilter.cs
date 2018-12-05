@@ -25,7 +25,7 @@ namespace IncidentSystem.API.ActionFilters
             context.Result = new JsonResult(new
             {
                 StatusCode = 500,
-                Message = "Internal Server Error from the custom middleware."
+                Message = $"Internal Server Error from the custom middleware. Exception message: '{context.Exception.Message}'"
             });
         }
     }

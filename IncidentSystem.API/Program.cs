@@ -20,6 +20,7 @@ namespace IncidentSystem.API
                 {
                     var context = services.GetRequiredService<DatabaseContext>();
                     DatabaseInitializer.InitializeIncidents(context);
+                    DatabaseInitializer.InitializeUserAccounts(context);
                 }
                 catch (Exception ex)
                 {

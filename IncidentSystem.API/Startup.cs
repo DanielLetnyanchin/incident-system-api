@@ -40,7 +40,7 @@ namespace IncidentSystem.API
             services.AddIdentityCore<UserAccount>(options => { });
             services.AddScoped<IUserStore<UserAccount>, UserAccountService>();
             services.AddAuthentication("cookies")
-                .AddCookie("cookies", options => options.LoginPath = "/test");
+                .AddCookie("cookies", options => options.LoginPath = "/Test/Login");
 
             services.AddMvc(options =>
             {

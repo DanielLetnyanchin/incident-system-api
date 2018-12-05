@@ -14,11 +14,11 @@ namespace IncidentSystem.API.Controllers
     [Route("Test")]
     public class TestController : Controller
     {
-        private readonly UserManager<UserAccount> userManager;
+        private readonly UserManager<UserAccount> _userManager;
 
         public TestController(UserManager<UserAccount> userManager)
         {
-            this.userManager = userManager;
+            _userManager = userManager;
         }
 
         [HttpGet()]
@@ -26,14 +26,14 @@ namespace IncidentSystem.API.Controllers
         {
             return View();
         }
-
-        [HttpGet("About")]
+       
         [Authorize]
+        [HttpGet("About")]
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
 
-            return View();
+            return View("About");
         }
 
         [HttpGet("Contact")]
@@ -61,7 +61,7 @@ namespace IncidentSystem.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await userManager.FindByNameAsync(model.UserName);
+                var user = await _userManager.FindByNameAsync(model.UserName);
 
                 if (user == null)
                 {
@@ -71,7 +71,7 @@ namespace IncidentSystem.API.Controllers
                         UserName = model.UserName
                     };
 
-                    var result = await userManager.CreateAsync(user, model.Password);
+                    var result = await _userManager.CreateAsync(user, model.Password);
                 }
 
                 return View("Success");
@@ -92,9 +92,9 @@ namespace IncidentSystem.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await userManager.FindByNameAsync(model.UserName);
+                var user = await _userManager.FindByNameAsync(model.UserName);
 
-                if (user != null && await userManager.CheckPasswordAsync(user, model.Password))
+                if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
                 {
                     var identity = new ClaimsIdentity("cookies");
                     identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.UserAccountId));

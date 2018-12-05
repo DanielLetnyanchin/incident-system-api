@@ -20,7 +20,7 @@ namespace IncidentSystem.DataAccess
             }
         }
 
-        public static void InitializeAccounts(DatabaseContext context)
+        public static void InitializeUserAccounts(DatabaseContext context)
         {
             if (!context.UserAccounts.Any())
             {
@@ -30,6 +30,7 @@ namespace IncidentSystem.DataAccess
                     //new UserAccount { FirstName = "Sandro", LastName = "Necromancer", Email = "sandro_necromancer@deyja.com", Password = "sandro_necromancer@deyja.com", IsAdmin = false },
                     //new UserAccount { FirstName = "Pasis", LastName = "Planeswalker", Email = "pasis_planeswalker@conflux.com", Password = "pasis_planeswalker@conflux.com", IsAdmin = false },
                     //new UserAccount { FirstName = "Solmyr", LastName = "Wizard", Email = "solmyr_wizard@bracada.com", Password = "solmyr_wizard@bracada.com", IsAdmin = false }
+                    new UserAccount { UserAccountId = "id", UserName = "Test", NormalizedUserName = "TEST", FirstName = "Test", LastName = "Testovich", Email = "Test@test.com", PasswordHash = "test", IsAdmin = false }
                 );
 
                 context.SaveChanges();
