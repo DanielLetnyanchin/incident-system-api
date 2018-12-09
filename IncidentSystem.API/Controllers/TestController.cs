@@ -1,12 +1,17 @@
 ﻿using IncidentSystem.API.TestModels;
+using IncidentSystem.Interfaces;
 using IncidentSystem.Models.Entities;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Diagnostics;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace IncidentSystem.API.Controllers
@@ -14,11 +19,11 @@ namespace IncidentSystem.API.Controllers
     [Route("Test")]
     public class TestController : Controller
     {
-        private readonly UserManager<UserAccount> _userManager;
+        private readonly IUserAccountService _userAccountService;
 
-        public TestController(UserManager<UserAccount> userManager)
+        public TestController(IUserAccountService userAccountService)
         {
-            _userManager = userManager;
+            _userAccountService = userAccountService;
         }
 
         [HttpGet()]
@@ -27,8 +32,9 @@ namespace IncidentSystem.API.Controllers
             return View();
         }
        
-        [Authorize]
+        
         [HttpGet("About")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
@@ -56,22 +62,21 @@ namespace IncidentSystem.API.Controllers
         }
 
         [HttpPost("Register")]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByNameAsync(model.UserName);
+                var user = await _userAccountService.FindByUserNameAsync(model.UserName);
 
                 if (user == null)
                 {
                     user = new UserAccount
                     {
-                        UserAccountId = Guid.NewGuid().ToString(),
                         UserName = model.UserName
                     };
 
-                    var result = await _userManager.CreateAsync(user, model.Password);
+                    await _userAccountService.CreateAsync(user);
                 }
 
                 return View("Success");
@@ -87,17 +92,17 @@ namespace IncidentSystem.API.Controllers
         }
 
         [HttpPost("Login")]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByNameAsync(model.UserName);
+                var user = await _userAccountService.FindByUserNameAsync(model.UserName);
 
-                if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
+                if (user != null && await _userAccountService.GetPasswordAsync(user) == model.Password)
                 {
                     var identity = new ClaimsIdentity("cookies");
-                    identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.UserAccountId));
+                    identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
                     identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
 
                     await HttpContext.SignInAsync("cookies", new ClaimsPrincipal(identity));
@@ -109,6 +114,44 @@ namespace IncidentSystem.API.Controllers
             }
 
             return View();
+        }
+
+        [HttpPost("CreateToken")]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateToken([FromBody] LoginModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userAccountService.FindByUserNameAsync(model.UserName);
+                if (user != null && await _userAccountService.GetPasswordAsync(user) == model.Password)
+                {
+                    // Token creation
+                    var claims = new[]
+                    {
+                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                        new Claim(JwtRegisteredClaimNames.Email, user.Email)
+                    };
+
+                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ValueFromConfigFile"));
+                    var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+                    var token = new JwtSecurityToken(
+                        "IssuerFromConfigFile",
+                        "AudienceFromConfigFile",
+                        claims,
+                        expires: DateTime.UtcNow.AddHours(1),
+                        signingCredentials: credentials
+                        );
+
+                    return Created("", new
+                    {
+                        token = new JwtSecurityTokenHandler().WriteToken(token),
+                        expiration = token.ValidTo
+                    });
+                }
+            }
+
+            return BadRequest();
         }
     }
 }

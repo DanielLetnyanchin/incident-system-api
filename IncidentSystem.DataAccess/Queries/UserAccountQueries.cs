@@ -8,14 +8,14 @@ namespace IncidentSystem.DataAccess.Queries
 {
     public static class UserAccountQueries
     {
-        public static Expression<Func<UserAccount, bool>> UserAccountById(string id)
+        public static Expression<Func<UserAccount, bool>> UserAccountById(int id)
         {
             return (a => a.UserAccountId == id);
         }
 
-        public static Expression<Func<UserAccount, bool>> UserAccountByNormalizedUserName(string normalizedUserName)
+        public static Expression<Func<UserAccount, bool>> UserAccountByUserName(string userName)
         {
-            return (a => a.NormalizedUserName == normalizedUserName);
+            return (a => a.UserName == userName);
         }
     }
 }

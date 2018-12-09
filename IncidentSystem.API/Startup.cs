@@ -13,6 +13,8 @@ using IncidentSystem.API.ActionFilters;
 using IncidentSystem.Business;
 using Microsoft.AspNetCore.Identity;
 using IncidentSystem.Models.Entities;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace IncidentSystem.API
 {
@@ -38,9 +40,18 @@ namespace IncidentSystem.API
             services.AddScoped<IIncidentService, IncidentService>();
 
             services.AddIdentityCore<UserAccount>(options => { });
-            services.AddScoped<IUserStore<UserAccount>, UserAccountService>();
-            services.AddAuthentication("cookies")
-                .AddCookie("cookies", options => options.LoginPath = "/Test/Login");
+            services.AddScoped<IUserAccountService, UserAccountService>();
+            services.AddAuthentication()
+                //.AddCookie("cookies", options => options.LoginPath = "/Test/Login")
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidIssuer = "IssuerFromConfigFile",
+                        ValidAudience = "AudienceFromConfigFile",
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ValueFromConfigFile"))
+                    };
+                });
 
             services.AddMvc(options =>
             {

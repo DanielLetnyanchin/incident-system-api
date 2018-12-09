@@ -40,8 +40,9 @@ namespace IncidentSystem.API.Migrations
 
             modelBuilder.Entity("IncidentSystem.Models.Entities.UserAccount", b =>
                 {
-                    b.Property<string>("UserAccountId")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("UserAccountId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("DateCreated");
 
@@ -55,9 +56,7 @@ namespace IncidentSystem.API.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<string>("NormalizedUserName");
-
-                    b.Property<string>("PasswordHash");
+                    b.Property<string>("Password");
 
                     b.Property<string>("UserName");
 

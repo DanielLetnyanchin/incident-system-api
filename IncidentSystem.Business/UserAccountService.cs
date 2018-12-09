@@ -1,5 +1,6 @@
 ﻿using IncidentSystem.DataAccess;
 using IncidentSystem.DataAccess.Queries;
+using IncidentSystem.Interfaces;
 using IncidentSystem.Models.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace IncidentSystem.Business
 {
-    public class UserAccountService : IUserStore<UserAccount>, IUserPasswordStore<UserAccount>
+    public class UserAccountService : IUserAccountService
     {
         private DatabaseContext _dbContext;
 
@@ -19,82 +20,67 @@ namespace IncidentSystem.Business
             _dbContext = dbContext;
         }
 
-        public async Task<IdentityResult> CreateAsync(UserAccount user, CancellationToken cancellationToken)
+        public async Task CreateAsync(UserAccount user)
         {
             _dbContext.UserAccounts.Add(user);
             await _dbContext.SaveChangesAsync();
-            return IdentityResult.Success;
         }
 
-        public async Task<IdentityResult> DeleteAsync(UserAccount user, CancellationToken cancellationToken)
+        public async Task DeleteAsync(UserAccount user)
         {
             _dbContext.UserAccounts.Remove(user);
             await _dbContext.SaveChangesAsync();
-            return IdentityResult.Success;
         }
 
         public void Dispose()
         {
         }
 
-        public async Task<UserAccount> FindByIdAsync(string userId, CancellationToken cancellationToken)
+        public async Task<UserAccount> FindByIdAsync(int userId)
         {
             return await _dbContext.UserAccounts.Where(UserAccountQueries.UserAccountById(userId)).SingleOrDefaultAsync();
         }
 
-        public async Task<UserAccount> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
+        public async Task<UserAccount> FindByUserNameAsync(string userName)
         {
-            return await _dbContext.UserAccounts.Where(UserAccountQueries.UserAccountByNormalizedUserName(normalizedUserName)).SingleOrDefaultAsync();
+            return await _dbContext.UserAccounts.Where(UserAccountQueries.UserAccountByUserName(userName)).SingleOrDefaultAsync();
         }
 
-        public Task<string> GetNormalizedUserNameAsync(UserAccount user, CancellationToken cancellationToken)
+        public Task<string> GetPasswordAsync(UserAccount user)
         {
-            return Task.FromResult(user.NormalizedUserName);
+            return Task.FromResult(user.Password);
         }
 
-        public Task<string> GetPasswordHashAsync(UserAccount user, CancellationToken cancellationToken)
-        {
-            return Task.FromResult(user.PasswordHash);
-        }
-
-        public Task<string> GetUserIdAsync(UserAccount user, CancellationToken cancellationToken)
+        public Task<int> GetUserIdAsync(UserAccount user)
         {
             return Task.FromResult(user.UserAccountId);
         }
 
-        public Task<string> GetUserNameAsync(UserAccount user, CancellationToken cancellationToken)
+        public Task<string> GetUserNameAsync(UserAccount user)
         {
             return Task.FromResult(user.UserName);
         }
 
-        public Task<bool> HasPasswordAsync(UserAccount user, CancellationToken cancellationToken)
+        public Task<bool> HasPasswordAsync(UserAccount user)
         {
             throw new NotImplementedException();
         }
 
-        public Task SetNormalizedUserNameAsync(UserAccount user, string normalizedName, CancellationToken cancellationToken)
+        public Task SetPasswordAsync(UserAccount user, string password)
         {
-            user.NormalizedUserName = normalizedName;
-            return Task.CompletedTask;
+            throw new NotImplementedException();
         }
 
-        public Task SetPasswordHashAsync(UserAccount user, string passwordHash, CancellationToken cancellationToken)
-        {
-            user.PasswordHash = passwordHash;
-            return Task.CompletedTask;
-        }
-
-        public Task SetUserNameAsync(UserAccount user, string userName, CancellationToken cancellationToken)
+        public Task SetUserNameAsync(UserAccount user, string userName)
         {
             user.UserName = userName;
             return Task.CompletedTask;
         }
 
-        public async Task<IdentityResult> UpdateAsync(UserAccount user, CancellationToken cancellationToken)
+        public async Task UpdateAsync(UserAccount user)
         {
             _dbContext.UserAccounts.Update(user);
             await _dbContext.SaveChangesAsync();
-            return IdentityResult.Success;
         }
     }
 }

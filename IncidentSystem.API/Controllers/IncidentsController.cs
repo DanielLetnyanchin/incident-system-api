@@ -1,15 +1,10 @@
-﻿using System;
-using System.Diagnostics;
-using IncidentSystem.Models.Entities;
-using Microsoft.AspNetCore.Mvc;
+﻿using IncidentSystem.DataAccess.Queries;
 using IncidentSystem.Interfaces;
-using IncidentSystem.API.ActionFilters;
-using System.Linq.Expressions;
+using IncidentSystem.Models.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using IncidentSystem.DataAccess;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using IncidentSystem.DataAccess.Queries;
 
 namespace IncidentSystem.API.Controllers
 {
@@ -32,6 +27,7 @@ namespace IncidentSystem.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> GetIncident(int id)
         {
             //throw new Exception("Custom exception for testing");
