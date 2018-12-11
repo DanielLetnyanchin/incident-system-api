@@ -36,45 +36,14 @@ namespace IncidentSystem.Business
         {
         }
 
-        public async Task<UserAccount> FindByIdAsync(int userId)
+        public async Task<UserAccount> GetByIdAsync(int userId)
         {
             return await _dbContext.UserAccounts.Where(UserAccountQueries.UserAccountById(userId)).SingleOrDefaultAsync();
         }
 
-        public async Task<UserAccount> FindByUserNameAsync(string userName)
+        public async Task<UserAccount> GetByUserNameAsync(string userName)
         {
             return await _dbContext.UserAccounts.Where(UserAccountQueries.UserAccountByUserName(userName)).SingleOrDefaultAsync();
-        }
-
-        public Task<string> GetPasswordAsync(UserAccount user)
-        {
-            return Task.FromResult(user.Password);
-        }
-
-        public Task<int> GetUserIdAsync(UserAccount user)
-        {
-            return Task.FromResult(user.UserAccountId);
-        }
-
-        public Task<string> GetUserNameAsync(UserAccount user)
-        {
-            return Task.FromResult(user.UserName);
-        }
-
-        public Task<bool> HasPasswordAsync(UserAccount user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task SetPasswordAsync(UserAccount user, string password)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task SetUserNameAsync(UserAccount user, string userName)
-        {
-            user.UserName = userName;
-            return Task.CompletedTask;
         }
 
         public async Task UpdateAsync(UserAccount user)

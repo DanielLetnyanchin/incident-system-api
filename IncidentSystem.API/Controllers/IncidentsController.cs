@@ -39,7 +39,7 @@ namespace IncidentSystem.API.Controllers
         [HttpPost()]
         public async Task<IActionResult> AddIncident(Incident incident)
         {
-            await _incidentService.AddNewIncidentAsync(incident);
+            await _incidentService.CreateIncidentAsync(incident);
             return Ok();
         }
     }

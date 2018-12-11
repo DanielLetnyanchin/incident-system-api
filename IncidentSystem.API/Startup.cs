@@ -20,12 +20,12 @@ namespace IncidentSystem.API
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
+        public IConfiguration _configuration { get; }
 
         public Startup(IConfiguration configuration)
         {
             LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
-            Configuration = configuration;
+            _configuration = configuration;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -34,7 +34,7 @@ namespace IncidentSystem.API
             // Moove to extand method all config
             services.AddDbContext<DatabaseContext>(
                 options => options
-                .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), o => o.MigrationsAssembly("IncidentSystem.API")));
+                .UseSqlServer(_configuration.GetConnectionString("DefaultConnection"), o => o.MigrationsAssembly("IncidentSystem.API")));
 
             services.AddSingleton<ILoggerWrapper, LoggerWrapper>();
             services.AddScoped<IIncidentService, IncidentService>();
@@ -42,14 +42,13 @@ namespace IncidentSystem.API
             services.AddIdentityCore<UserAccount>(options => { });
             services.AddScoped<IUserAccountService, UserAccountService>();
             services.AddAuthentication()
-                //.AddCookie("cookies", options => options.LoginPath = "/Test/Login")
                 .AddJwtBearer(options =>
                 {
                     options.TokenValidationParameters = new TokenValidationParameters()
                     {
-                        ValidIssuer = "IssuerFromConfigFile",
-                        ValidAudience = "AudienceFromConfigFile",
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ValueFromConfigFile"))
+                        ValidIssuer = _configuration["Tokens:Issuer"],
+                        ValidAudience = _configuration["Tokens:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Tokens:Key"]))
                     };
                 });
 

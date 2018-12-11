@@ -21,7 +21,7 @@ namespace IncidentSystem.Business
             _dbContext = dbContext;
         }
 
-        public async Task AddNewIncidentAsync(Incident incident)
+        public async Task CreateIncidentAsync(Incident incident)
         {
             await _dbContext.Incidents.AddAsync(incident);
             await _dbContext.SaveChangesAsync();

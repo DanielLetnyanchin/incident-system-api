@@ -9,13 +9,8 @@ namespace IncidentSystem.Interfaces
         Task CreateAsync(UserAccount user);
         Task DeleteAsync(UserAccount user);
         void Dispose();
-        Task<UserAccount> FindByIdAsync(int userId);
-        Task<UserAccount> FindByUserNameAsync(string userName);
-        Task<string> GetPasswordAsync(UserAccount user);
-        Task<int> GetUserIdAsync(UserAccount user);
-        Task<string> GetUserNameAsync(UserAccount user);
-        Task SetPasswordAsync(UserAccount user, string password);
-        Task SetUserNameAsync(UserAccount user, string userName);
+        Task<UserAccount> GetByIdAsync(int userId);
+        Task<UserAccount> GetByUserNameAsync(string userName);
         Task UpdateAsync(UserAccount user);
     }
 }
