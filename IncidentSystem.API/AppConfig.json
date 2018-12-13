@@ -1,5 +1,10 @@
 ﻿{
   "ConnectionStrings": {
-    "DefaultConnection": "Server=(localdb)\\MSSQLLocalDB;Database=EducationalLocalDb;Trusted_Connection=True;MultipleActiveResultSets=true"
+    "DefaultConnection": "Server=(localdb)\\MSSQLLocalDB;Database=IncidentSystemLocalDb;Trusted_Connection=True;MultipleActiveResultSets=true"
+  },
+  "Tokens": {
+    "Key": "Twas brillig, and the slithy toves Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe.",
+    "Issuer": "localhost",
+    "Audience": "users"
   }
 }

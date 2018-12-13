@@ -21,10 +21,10 @@ namespace IncidentSystem.Business
             _dbContext = dbContext;
         }
 
-        public async Task AddNewIncidentAsync(Incident incident)
+        public async Task CreateIncidentAsync(Incident incident)
         {
             await _dbContext.Incidents.AddAsync(incident);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Incident>> GetAllIncidentsAsync()
@@ -44,7 +44,7 @@ namespace IncidentSystem.Business
 
         public async Task<Incident> GetSingleIncidentByExpressionAsync(Expression<Func<Incident, bool>> expression)
         {
-            return await _dbContext.Incidents.Where(expression).SingleAsync();
+            return await _dbContext.Incidents.Where(expression).SingleOrDefaultAsync();
         }
     }
 }
