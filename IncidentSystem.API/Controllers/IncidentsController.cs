@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace IncidentSystem.API.Controllers
 {
@@ -33,7 +34,17 @@ namespace IncidentSystem.API.Controllers
             //throw new Exception("Custom exception for testing");
 
             //return new JsonResult(await _incidentService.GetIncidentByIdAsync(id));
-            return new JsonResult(await _incidentService.GetSingleIncidentByExpressionAsync(IncidentQueries.IncidentById(id)));
+            Incident resultIncident ;
+            using (TransactionScope scope = new TransactionScope())
+            {
+                 resultIncident =
+                    await _incidentService.GetSingleIncidentByExpressionAsync(IncidentQueries.IncidentById(id));
+                
+                scope.Complete();
+            }
+
+            return new JsonResult(resultIncident);
+
         }
 
         [HttpPost()]
