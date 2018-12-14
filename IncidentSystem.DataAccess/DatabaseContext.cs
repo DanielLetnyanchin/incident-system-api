@@ -11,9 +11,8 @@ namespace IncidentSystem.DataAccess
         public DbSet<Incident> Incidents { get; set; }
         public DbSet<UserAccount> UserAccounts { get; set; }
 
-        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
-        {
-        }
+        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
+        public DatabaseContext() { }
 
         public override int SaveChanges()
         {
