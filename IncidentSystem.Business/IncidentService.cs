@@ -34,7 +34,7 @@ namespace IncidentSystem.Business
 
         public async Task<Incident> GetIncidentByIdAsync(int id)
         {
-            return await _dbContext.Incidents.Where(IncidentQueries.IncidentById(id)).SingleAsync();
+            return await _dbContext.Incidents.Where(IncidentQueries.IncidentById(id)).SingleOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Incident>> GetIncidentCollectionByExpressionAsync(Expression<Func<Incident, bool>> expression)

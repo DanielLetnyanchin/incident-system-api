@@ -14,7 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\IncidentSystem.Business\IncidentSystem.Business.csproj" />
     <ProjectReference Include="..\IncidentSystem.DataAccess\IncidentSystem.DataAccess.csproj" />
+    <ProjectReference Include="..\IncidentSystem.Interfaces\IncidentSystem.Interfaces.csproj" />
   </ItemGroup>
 
   <ItemGroup>
