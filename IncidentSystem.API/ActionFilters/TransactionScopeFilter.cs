@@ -7,17 +7,16 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace IncidentSystem.API.ActionFilters
 {
-    public class TransactionScopeFilter: IActionFilter
+    public class TransactionScopeFilter : IAsyncActionFilter
     {
-        public void OnActionExecuting(ActionExecutingContext context)
+        public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            TransactionScope scope = new TransactionScope();
-            context.HttpContext.Items.Add("scope",scope);
-        }
+            TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
+            
+            var resultContext = await next();
 
-        public void OnActionExecuted(ActionExecutedContext context)
-        {
-           
+            scope.Complete();
+            scope.Dispose();
         }
     }
 }

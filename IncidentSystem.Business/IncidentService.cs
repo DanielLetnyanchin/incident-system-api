@@ -31,7 +31,7 @@ namespace IncidentSystem.Business
         {
             return await _dbContext.Incidents.ToListAsync();
         }
-
+        
         public async Task<Incident> GetIncidentByIdAsync(int id)
         {
             return await _dbContext.Incidents.Where(IncidentQueries.IncidentById(id)).SingleAsync();

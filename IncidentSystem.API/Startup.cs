@@ -55,6 +55,7 @@ namespace IncidentSystem.API
             services.AddMvc(options =>
             {
                 options.Filters.Add(typeof(GlobalExceptionFilter)); // Registering filter globally
+                options.Filters.Add(new TransactionScopeFilter());
             });            
         }
 
