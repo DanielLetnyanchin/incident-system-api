@@ -11,12 +11,11 @@ namespace IncidentSystem.API.ActionFilters
     {
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
-            
-            var resultContext = await next();
-
-            scope.Complete();
-            scope.Dispose();
+            using (TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                var resultContext = await next();
+                scope.Complete();
+            }
         }
     }
 }
